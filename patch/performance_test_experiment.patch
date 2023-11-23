@@ -1,0 +1,27 @@
+diff --git a/call/adaptation/video_stream_adapter.cc b/call/adaptation/video_stream_adapter.cc
+index 5a970fb2ef..eb1bb1fdff 100644
+--- a/call/adaptation/video_stream_adapter.cc
++++ b/call/adaptation/video_stream_adapter.cc
+@@ -464,7 +464,8 @@ VideoStreamAdapter::GetAdaptationDownStep(
+       [[fallthrough]];
+     }
+     case DegradationPreference::MAINTAIN_FRAMERATE: {
+-      return DecreaseResolution(input_state, current_restrictions);
++      return Adaptation::Status::kAdaptationDisabled;						    
++      //return DecreaseResolution(input_state, current_restrictions);
+     }
+     case DegradationPreference::MAINTAIN_RESOLUTION: {
+       return DecreaseFramerate(input_state, current_restrictions);
+diff --git a/media/engine/webrtc_video_engine.cc b/media/engine/webrtc_video_engine.cc
+index bbda10dbd6..405c977bf7 100644
+--- a/media/engine/webrtc_video_engine.cc
++++ b/media/engine/webrtc_video_engine.cc
+@@ -85,7 +85,7 @@ const int kNackHistoryMs = 1000;
+ const int kDefaultRtcpReceiverReportSsrc = 1;
+ 
+ // Minimum time interval for logging stats.
+-const int64_t kStatsLogIntervalMs = 10000;
++const int64_t kStatsLogIntervalMs = 500;
+ 
+ const char* StreamTypeToString(
+     webrtc::VideoSendStream::StreamStats::StreamType type) {
